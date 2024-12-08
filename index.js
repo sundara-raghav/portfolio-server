@@ -9,7 +9,10 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB Atlas connection string
-const MONGO_URI = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@portfolio.rzuyn.mongodb.net/`; // Specify 'ecom' as the database name
+const MONGO_URI = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@portfolio.rzuyn.mongodb.net/test?retryWrites=true&w=majority`; // Specify 'ecom' as the database name
+
+
+
 
 mongoose
   .connect(MONGO_URI, {
@@ -83,3 +86,5 @@ app.post("/submit", async (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
