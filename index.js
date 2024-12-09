@@ -52,25 +52,39 @@ app.get("/", async (req, res) => {
     const submissions = await Form.find();
     res.send(`
       <h1>Form Submissions</h1>
-      <ul>
-        ${submissions
-          .map(
-            (submission) => `
-          <li>
-            <strong>Name:</strong> ${submission.name} <br>
-            <strong>Email:</strong> ${submission.email} <br>
-            <strong>Mobile:</strong> ${submission.mobile} <br>
-            <strong>Message:</strong> ${submission.message}
-          </li>
-        `
-          )
-          .join("")}
-      </ul>
+      <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${submissions
+            .map(
+              (submission, index) => `
+            <tr>
+              <td>${index + 1}</td>
+              <td>${submission.name}</td>
+              <td>${submission.email}</td>
+              <td>${submission.mobile}</td>
+              <td>${submission.message}</td>
+            </tr>
+          `
+            )
+            .join("")}
+        </tbody>
+      </table>
     `);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch submissions." });
   }
 });
+
+
 
 // Route to handle form submissions
 app.post("/submit", async (req, res) => {
